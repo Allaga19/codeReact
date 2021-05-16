@@ -2,87 +2,179 @@ import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import './style.css';
-// import { App } from './components';
 
-// карточка товара
-const Product = ({ photo, header, price, description, click }) => (
-   <div className="product" onClick={click}>
-      <img className="product__photo" src={photo} alt=""/>
-      <div className="product__information">
-         <h2 className="product__header">{header}</h2>
-         <div className="product__price">Цена: {price} рублей</div>
-         <div className="product__description">{description}</div>
-      </div>
-   </div>
-)
-Product.propTypes = {
-   photo: PropTypes.string,
-   header: PropTypes.string,
-   price: PropTypes.number,
-   description: PropTypes.string,
-   click: PropTypes.func
-}
-Product.defaultProps = {
-   photo: '/img/0.jpg',
-   header: 'Неизвестный продукт',
-   price: '0',
-   description: '...',
-   click: () => alert('Неизвестный продукт')
-}
-// const Hello = ({name, children}) => (
-//    <div>
-//       Hello, {name}!
-//       {children}
+const Season = ({ value }) => {
+   // return (
+   //    <div className="season">
+   //       <img className="season__img" src="/img/winter.jpg" alt=""/> 
+   //       <div className="season__name">Зима</div> 
+   //    </div>
+   // )
+   // ============ Вариант Условнога рендеринга
+   // if (value === 1) {
+   //    return (
+   //       <div className="season">
+   //          <img className="season__img" src="/img/winter.jpg" alt=""/> 
+   //          <div className="season__name">Зима</div> 
+   //       </div>
+   //    )
+   // } else if (value === 2) {
+   //    return (
+   //       <div className="season">
+   //          <img className="season__img" src="/img/autumn.jpg" alt=""/> 
+   //          <div className="season__name">Весна</div> 
+   //       </div>
+   //    )
+   // } else if (value === 3) {
+   //    return (
+   //       <div className="season">
+   //          <img className="season__img" src="/img/summer.jpg" alt=""/> 
+   //          <div className="season__name">Лето</div> 
+   //       </div>
+   //    )
+   // } else {
+   //    return (
+   //       <div className="season">
+   //          <img className="season__img" src="/img/spring.jpg" alt=""/> 
+   //          <div className="season__name">Осень</div> 
+   //       </div>
+   //    )
+   // }
+// ============ Вариант Условнога рендеринга
+// switch (value) {
+//    case 1:
+//       return (
+//          <div className="season">
+//             <img className="season__img" src="/img/winter.jpg" alt=""/> 
+//             <div className="season__name">Зима</div> 
+//          </div>
+//       )
+//    case 2:
+//       return (
+//          <div className="season">
+//             <img className="season__img" src="/img/autumn.jpg" alt=""/> 
+//             <div className="season__name">Весна</div> 
+//          </div>
+//       )
+//    case 3:
+//       return (
+//          <div className="season">
+//             <img className="season__img" src="/img/summer.jpg" alt=""/> 
+//             <div className="season__name">Лето</div> 
+//          </div>
+//       )
+//    default:
+//       return (
+//          <div className="season">
+//             <img className="season__img" src="/img/spring.jpg" alt=""/> 
+//             <div className="season__name">Осень</div> 
+//          </div>
+//       )
+// }
+
+// ============ Вариант Условнога рендеринга
+// данный вариант использует тернарный оператор
+   // return value === 1 ? (
+   //    <div className="season">
+   //       <img className="season__img" src="/img/winter.jpg" alt=""/> 
+   //       <div className="season__name">Зима</div> 
+   //    </div>
+   // ) : value === 2 ? (
+   //    <div className="season">
+   //       <img className="season__img" src="/img/autumn.jpg" alt=""/> 
+   //       <div className="season__name">Весна</div> 
+   //    </div>
+   // ) : value === 3 ? (
+   //    <div className="season">
+   //       <img className="season__img" src="/img/summer.jpg" alt=""/> 
+   //       <div className="season__name">Лето</div> 
+   //    </div>
+   // ) : (
+   //    <div className="season">
+   //       <img className="season__img" src="/img/spring.jpg" alt=""/> 
+   //       <div className="season__name">Осень</div> 
+   //    </div>
+   // )
+
+// ============ Вариант Условнога рендеринга
+// Используем js в нутри разметки. каждый фрагмент оборачиваем в  <Fragment>
+   // return (
+   //    <div className="season">
+   //       {value === 1 ? (
+   //          <Fragment>
+   //             <img className="season__img" src="/img/winter.jpg" alt=""/> 
+   //             <div className="season__name">Зима</div>
+   //          </Fragment> 
+   //       ) : value === 2 ? (
+   //          <Fragment>
+   //             <img className="season__img" src="/img/autumn.jpg" alt=""/> 
+   //             <div className="season__name">Весна</div> 
+   //          </Fragment> 
+   //       ) : value === 3 ? (
+   //          <Fragment>
+   //             <img className="season__img" src="/img/summer.jpg" alt=""/> 
+   //             <div className="season__name">Лето</div> 
+   //          </Fragment> 
+   //       ) : (
+   //          <Fragment>
+   //             <img className="season__img" src="/img/spring.jpg" alt=""/> 
+   //             <div className="season__name">Осень</div> 
+   //          </Fragment> 
+   //       )}
+   //    </div>
+   // )
+// ============ Вариант Условнога рендеринга
+// такой же подход как и предыдущий только внутри атрибута src
+// return (
+//    <div className="season">
+//       <img className="season__img" src={
+//          value === 1 ? '/img/winter.jpg' :
+//          value === 2 ? '/img/autumn.jpg' :
+//          value === 3 ? '/img/summer.jpg' :
+//          '/img/sprint.jpg'
+//       } alt=""/>
+//       <div className="season__name">{
+//          value === 1 ? 'Зима' :
+//          value === 2 ? 'Весна' :
+//          value === 2 ? 'Лето' :
+//          'Осень'
+//       }</div>
 //    </div>
 // )
+// ============ Вариант Условнога рендеринга
+// Пример основан на использовании логического оператора "&&""
+return (
+   <div className="season">
+      {value === 1 && (
+         <Fragment>
+            <img className="season__img" src="/img/winter.jpg" alt=""/> 
+            <div className="season__name">Зима</div>
+         </Fragment> 
+      )}
+      {value === 2 && (
+          <Fragment>
+            <img className="season__img" src="/img/autumn.jpg" alt=""/> 
+            <div className="season__name">Весна</div> 
+         </Fragment> 
+      )}
+      {value === 3 && (
+          <Fragment>
+            <img className="season__img" src="/img/summer.jpg" alt=""/> 
+            <div className="season__name">Лето</div> 
+         </Fragment> 
+      )}
+      {value === 3 && (
+          <Fragment>
+            <img className="season__img" src="/img/spring.jpg" alt=""/> 
+            <div className="season__name">Осень</div> 
+         </Fragment> 
+      )}
+    </div>
+   )
+}
+Season.propTypes = {
+   value: PropTypes.number.isRequired
+}
+   
 
-// Hello.propTypes = {
-//    name: PropTypes.string.isRequired
-// }
-// // значение по умолчанию
-// Hello.defaultProps = {
-//    name: 'no name'
-// }
-
-const app = (
-   <Fragment>
-      <Product/>
-      <Product
-         photo="/img/3.jpg"
-         header="Кросовки"
-         price={1000}
-         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-         click={()=> alert('Кросовки')}
-      />
-       <Product
-         photo="/img/1.jpg"
-         header="Фотоаппарат"
-         price={4000}
-         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-         click={()=> alert('Фотоаппарат')}
-      />
-       <Product
-         photo="/img/2.jpg"
-         header="Наушники"
-         price={2000}
-         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-         click={()=> alert('Наушники')}
-      />
-       <Product
-         photo="/img/4.jpg"
-         header="Часы"
-         price={3000}
-         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-         click={()=> alert('Часы')}
-      />
-   </Fragment>
-)
-
-ReactDOM.render(app, document.getElementById('root'))
-  
-
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();
+ReactDOM.render(<Season value={2}/>, document.getElementById('root'))
